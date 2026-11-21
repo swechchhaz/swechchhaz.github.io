@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-paper: #eff3f4;
+  --color-ink: #0e1c26;
+  --color-slate: #4d606c;
+  --color-rule: #cbd5db;
+  --color-marker: #e3f25a;
+  --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-body: "Source Serif 4 Variable", Georgia, serif;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.65;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+/* The marker: only ever placed behind a real, sourced result. */
+.mark {
+  background-image: linear-gradient(var(--color-marker), var(--color-marker));
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  background-size: 100% 0.62em;
+  padding: 0 0.12em;
+  margin: 0 -0.12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* The one animated moment: the marker swipes across the hero results on load. */
+.mark-swipe {
+  background-size: 0% 0.62em;
+  animation: swipe 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: calc(0.35s + var(--i, 0) * 0.3s);
+}
+
+@keyframes swipe {
+  to {
+    background-size: 100% 0.62em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark-swipe {
+    animation: none;
+    background-size: 100% 0.62em;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Anything still missing from the facts shows up like this, so it can't slip through. */
+.todo {
+  border: 2px dashed #b3261e;
+  color: #b3261e;
+  padding: 0.1em 0.4em;
+  font-family: var(--font-display);
+  font-size: 0.85em;
+}
