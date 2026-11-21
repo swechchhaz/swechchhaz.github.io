@@ -13,7 +13,8 @@ Anything shown in a red dashed box on the site is a `[TODO]` that still needs yo
 
 ## Put it on the internet (GitHub Pages)
 
-1. On github.com, create a **Public** repository named exactly `swechchhaz.github.io`.
-2. Upload every file in this folder to it (not `node_modules`, which isn't included).
-3. In the repo, go to Settings > Pages and set **Source** to **GitHub Actions**.
-4. Open the **Actions** tab and wait for a green check. Your site will be at https://swechchhaz.github.io
+1. The repository must be named exactly `swechchhaz.github.io` and be Public.
+2. Upload the folders (`app`, `components`, `lib`, `public`) and the loose files by dragging them in. Check that the list shows paths like `app/page.tsx`.
+3. Add `.github/workflows/deploy.yml` (it builds and publishes the site).
+4. In Settings > Pages, set Source to GitHub Actions.
+5. Watch the Actions tab for a green check. The site is at https://swechchhaz.github.io

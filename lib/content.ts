@@ -15,8 +15,12 @@ export const profile = {
 
 export type Result = { figure: string; text: string };
 
+export type Tone = "lime" | "sky" | "peach" | "blush";
+
 export type Project = {
   slug: string;
+  tone: Tone;
+  teaser: { figure: string; text: string } | null;
   title: string;
   summary: string;
   date: string;
@@ -36,6 +40,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "sales-decision-support",
+    tone: "lime",
+    teaser: { figure: "60%", text: "less manual analysis time with a sales dashboard" },
     title: "A sales dashboard that cut manual analysis time by 60%",
     summary:
       "An interactive Streamlit dashboard and decision support system over 100,000+ sales records.",
@@ -62,6 +68,8 @@ export const projects: Project[] = [
   },
   {
     slug: "softball-coach-chatbot",
+    tone: "sky",
+    teaser: null,
     title: "A chatbot that answers coaches' questions about pitch and batting data",
     summary:
       "A Python and Gemini chatbot for Purdue Softball that answers plain-English questions by choosing from analysis functions.",
@@ -84,6 +92,8 @@ export const projects: Project[] = [
   },
   {
     slug: "alteryx-workflow-automation",
+    tone: "peach",
+    teaser: { figure: "65%", text: "less manual data prep time with 10+ Alteryx workflows" },
     title: "Automating 10+ Alteryx workflows to cut data prep time by 65%",
     summary:
       "Designed and automated Alteryx workflows over 50,000+ records during a data analyst internship.",
@@ -110,6 +120,8 @@ export const projects: Project[] = [
   },
   {
     slug: "marketing-campaign-analytics",
+    tone: "blush",
+    teaser: { figure: "25%", text: "growth in campaign reach, plus 40% more engagement" },
     title: "Growing campaign reach by 25% and engagement by 40%",
     summary:
       "Ran 15+ digital marketing campaigns and used engagement analysis to improve them.",
@@ -133,27 +145,6 @@ export const projects: Project[] = [
     learned: null,
     visual: null,
     repo: null,
-  },
-];
-
-export const heroResults = [
-  {
-    slug: "sales-decision-support",
-    before: "Cut manual analysis time by ",
-    figure: "60%",
-    after: " with a sales dashboard built on 100,000+ records.",
-  },
-  {
-    slug: "alteryx-workflow-automation",
-    before: "Cut manual data preparation time by ",
-    figure: "65%",
-    after: " by automating 10+ Alteryx workflows.",
-  },
-  {
-    slug: "marketing-campaign-analytics",
-    before: "Grew campaign reach by ",
-    figure: "25%",
-    after: " and engagement by 40% across 15+ campaigns.",
   },
 ];
 
