@@ -1,10 +1,9 @@
-import Link from "next/link";
+import { HoverCard } from "./HoverCard";
 
-const base = "flex flex-col rounded-[28px] p-6";
-const lift =
-  "h-full transition-transform duration-200 motion-safe:hover:-translate-y-1";
+const base = "relative overflow-hidden flex flex-col rounded-[28px] p-6";
 
-// A tile is a rounded block. With an href it is a link and lifts on hover.
+// A tile is a rounded block. With an href it becomes a link that responds
+// to the cursor.
 export function Tile({
   href,
   className = "",
@@ -16,9 +15,9 @@ export function Tile({
 }) {
   if (href) {
     return (
-      <Link href={href} className={`${base} ${lift} ${className}`}>
+      <HoverCard href={href} className={`${base} h-full ${className}`}>
         {children}
-      </Link>
+      </HoverCard>
     );
   }
   return <div className={`${base} ${className}`}>{children}</div>;
@@ -28,7 +27,7 @@ export function ArrowBadge() {
   return (
     <span
       aria-hidden="true"
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-current"
+      className="hover-arrow flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-current"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M7 17L17 7M9 7h8v8" />

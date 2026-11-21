@@ -190,3 +190,84 @@ a {
     transition: none;
   }
 }
+
+/* --- Cards that answer the cursor --------------------------------------
+   Everything here is opt-in: the tilt, the lift and the hidden detail only
+   exist for a device with a real pointer whose owner has not asked for less
+   motion. A touch screen and a reduced-motion setting both fall through to
+   the plain, fully visible card below. */
+.hover-card {
+  --px: 0;
+  --py: 0;
+}
+
+.hover-reveal {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hover-card {
+    transform: perspective(900px) rotateX(calc(var(--py) * -4deg))
+      rotateY(calc(var(--px) * 4deg));
+    transform-style: preserve-3d;
+    transition:
+      transform 260ms cubic-bezier(0.22, 0.8, 0.26, 1),
+      box-shadow 260ms cubic-bezier(0.22, 0.8, 0.26, 1);
+    will-change: transform;
+  }
+
+  .hover-card:hover,
+  .hover-card:focus-visible {
+    transform: perspective(900px) rotateX(calc(var(--py) * -4deg))
+      rotateY(calc(var(--px) * 4deg)) translateY(-8px) scale(1.022);
+    box-shadow: 0 22px 44px -20px rgba(20, 18, 43, 0.5);
+  }
+
+  /* The visual drifts a little further than the card it sits in. */
+  .hover-float {
+    transform: translate3d(calc(var(--px) * 14px), calc(var(--py) * 14px), 0);
+    transition: transform 320ms cubic-bezier(0.22, 0.8, 0.26, 1);
+  }
+
+  .hover-arrow {
+    transition: transform 260ms cubic-bezier(0.22, 0.8, 0.26, 1);
+  }
+
+  .hover-card:hover .hover-arrow,
+  .hover-card:focus-visible .hover-arrow {
+    transform: translate3d(3px, -3px, 0);
+  }
+
+}
+
+/* The detail panel slides up over the foot of the card. A touch screen never
+   builds it at all: there, a tap opens the project page, which holds the same
+   detail and more. */
+.hover-panel {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-panel {
+    display: block;
+    opacity: 0;
+    transform: translateY(100%);
+    transition:
+      opacity 240ms cubic-bezier(0.22, 0.8, 0.26, 1),
+      transform 300ms cubic-bezier(0.22, 0.8, 0.26, 1);
+  }
+
+  .hover-card:hover .hover-panel,
+  .hover-card:focus-visible .hover-panel {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Same panel, no movement, for anyone who has asked for less of it. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .hover-panel {
+    transform: none;
+    transition: opacity 120ms linear;
+  }
+}

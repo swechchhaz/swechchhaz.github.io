@@ -27,10 +27,19 @@ function ResultTile({ project, i }: { project: Project; i: number }) {
         className={`${toneBg[project.tone]} justify-between`}
       >
         <div className="flex items-start justify-between gap-3">
-          <StatRing percent={percent} size={124} />
+          <div className="hover-float">
+            <StatRing percent={percent} size={118} />
+          </div>
           <ArrowBadge />
         </div>
         <p className="mt-5 text-base leading-snug">{t.text}</p>
+
+        <div
+          className={`hover-panel absolute inset-0 ${toneBg[project.tone]} flex flex-col justify-center px-6`}
+        >
+          <p className="text-xl font-semibold leading-tight">{project.title}</p>
+          <p className="mt-3 text-base">Read the full project</p>
+        </div>
       </Tile>
     </div>
   );
@@ -103,6 +112,18 @@ export default function Home() {
               <p className="mt-6 text-base leading-snug">
                 Python and Gemini on Google Cloud, for Purdue Softball
               </p>
+
+              <div
+                className={`hover-panel absolute inset-x-0 bottom-0 ${toneBg[softball.tone]} border-t-[1.5px] border-ink/15 px-6 pb-6 pt-4`}
+              >
+                <p className="text-[17px] leading-snug">
+                  Answers coaches&rsquo; plain-English questions by choosing
+                  from a set of analysis functions.
+                </p>
+                <p className="mt-2 text-base font-semibold">
+                  Read the full project
+                </p>
+              </div>
             </Tile>
           </div>
 
@@ -164,7 +185,7 @@ export default function Home() {
                     href={`/projects/${p.slug}/`}
                     className={`${toneBg[p.tone]} min-h-[300px] justify-between p-8`}
                   >
-                    <div>
+                    <div className="hover-float">
                       <div className="flex items-start justify-between gap-4">
                         <p className="text-base">{p.date}</p>
                         <ArrowBadge />
@@ -182,6 +203,34 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
+
+                    <div
+                      className={`hover-panel absolute inset-x-0 bottom-0 ${toneBg[p.tone]} border-t-[1.5px] border-ink/15 px-8 pb-8 pt-5`}
+                    >
+                      {p.results.length > 0 ? (
+                        <ul className="grid grid-cols-3 gap-3">
+                          {p.results.map((r) => (
+                            <li key={r.text}>
+                              <span className="text-xl font-bold tracking-[-0.03em]">
+                                {r.figure}
+                              </span>
+                              <span className="block text-[14px] leading-snug">
+                                {r.text}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <>
+                          <p className="text-[15px] leading-snug">
+                            {p.tools.join(", ")}
+                          </p>
+                          <p className="mt-2 text-base font-semibold">
+                            Read the full project
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </Tile>
                 </Reveal>
               </li>
