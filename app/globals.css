@@ -56,3 +56,137 @@ a {
     scroll-behavior: auto;
   }
 }
+
+/* --- Moving colour behind the page ------------------------------------- */
+.backdrop-art {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at center,
+    rgba(20, 18, 43, 0.14) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.blob-1 {
+  width: 46rem;
+  height: 46rem;
+  left: -14rem;
+  top: -16rem;
+  background: rgba(79, 70, 229, 0.3);
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 40rem;
+  height: 40rem;
+  right: -12rem;
+  top: 18rem;
+  background: rgba(249, 168, 212, 0.4);
+  animation: drift-b 32s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+  width: 38rem;
+  height: 38rem;
+  left: 30%;
+  bottom: -14rem;
+  background: rgba(217, 249, 157, 0.45);
+  animation: drift-c 29s ease-in-out infinite alternate;
+}
+
+@keyframes drift-a {
+  to {
+    transform: translate(7rem, 5rem) scale(1.12);
+  }
+}
+
+@keyframes drift-b {
+  to {
+    transform: translate(-6rem, 4rem) scale(1.18);
+  }
+}
+
+@keyframes drift-c {
+  to {
+    transform: translate(5rem, -5rem) scale(1.1);
+  }
+}
+
+/* --- Blocks fade up as they come into view ------------------------------ */
+/* Visible by default. Only a page that has confirmed it is animating
+   hides a block before it scrolls into view, so nothing can stay invisible. */
+.anim .reveal:not(.is-shown) {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.reveal {
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 0.8, 0.26, 1),
+    transform 0.65s cubic-bezier(0.22, 0.8, 0.26, 1);
+}
+
+/* --- The hero tiles deal themselves in on load -------------------------- */
+.deal {
+  animation: deal-in 0.75s cubic-bezier(0.22, 0.8, 0.26, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes deal-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+}
+
+/* --- Skills band -------------------------------------------------------- */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 7rem, #000 calc(100% - 7rem), transparent);
+}
+
+.marquee ul {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+  animation: slide 38s linear infinite;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .marquee ul,
+  .deal {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
